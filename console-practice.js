@@ -53,4 +53,3 @@ console.log("Quantity:", qty);
 console.log("Total:", cartTotal);
 console.groupEnd();
 
-console.assert(cartTotal > 0, "Total should be positive");
