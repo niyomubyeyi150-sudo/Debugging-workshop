@@ -12,24 +12,91 @@
 <body class="min-h-screen bg-slate-50 text-slate-800">
 
   <!-- Navbar: change h-20 in DevTools to test the live DOM -->
-  <header id="navbar" class="h-20 bg-slate-900 text-white shadow-lg">
-    <nav class="mx-auto flex h-full max-w-7xl items-center justify-between px-5 lg:px-8">
-      <a href="#home" class="text-xl font-bold tracking-tight">
-        DebugLab<span class="text-emerald-400">.</span>
-      </a>
+ 
+<!-- Responsive Navbar -->
+<header id="navbar" class="relative h-20 bg-slate-900 text-white shadow-lg">
+  <nav class="mx-auto flex h-full max-w-7xl items-center justify-between px-5 lg:px-8">
 
-      <div class="hidden items-center gap-6 md:flex">
-        <a href="#exercises" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">Exercises</a>
-        <a href="#cart" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">Buggy Cart</a>
-        <a href="#devtools" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">DevTools</a>
-      </div>
+    <!-- Logo -->
+    <a href="#home" class="text-xl font-bold tracking-tight">
+      DebugLab<span class="text-emerald-400">.</span>
+    </a>
 
+    <!-- Desktop links: visible from medium screens -->
+    <div class="hidden items-center gap-6 md:flex">
       <a href="#exercises"
-         class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-white hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400">
-        Start Practice
+         class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">
+        Exercises
       </a>
-    </nav>
-  </header>
+
+      <a href="#cart"
+         class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">
+        Buggy Cart
+      </a>
+
+      <a href="#devtools"
+         class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">
+        DevTools
+      </a>
+    </div>
+
+    <!-- Desktop button -->
+    <a href="#exercises"
+       class="hidden rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-white hover:bg-emerald-600 md:inline-flex">
+      Start Practice
+    </a>
+
+    <!-- Hamburger button: visible on small screens -->
+    <button
+      id="menu-btn"
+      type="button"
+      class="inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-emerald-400 md:hidden"
+      aria-label="Open navigation menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false">
+
+      <!-- Hamburger icon -->
+      <svg id="menu-icon"
+           xmlns="http://www.w3.org/2000/svg"
+           class="h-7 w-7"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor"
+           stroke-width="2">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+  </nav>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu"
+       class="absolute left-0 top-full z-50 hidden w-full border-t border-slate-700 bg-slate-900 px-5 py-4 shadow-lg md:hidden">
+
+    <a href="#exercises"
+       class="block rounded-lg px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white">
+      Exercises
+    </a>
+
+    <a href="#cart"
+       class="block rounded-lg px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white">
+      Buggy Cart
+    </a>
+
+    <a href="#devtools"
+       class="block rounded-lg px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white">
+      DevTools
+    </a>
+
+    <a href="#exercises"
+       class="mt-2 block rounded-lg bg-emerald-500 px-4 py-3 text-center font-semibold text-white hover:bg-emerald-600">
+      Start Practice
+    </a>
+  </div>
+</header>
+
 
   <main id="home" class="mx-auto max-w-7xl space-y-12 px-5 py-12 lg:px-8">
 
