@@ -1,10 +1,9 @@
-
 "use strict";
 
+// FIX 1: The original Notebook price was the string "1500".
+// I found this by inspecting the cart data in DevTools.
+// Prices should be numbers, so I changed "1500" to 1500.
 const cart = [
-  // FIX 1: The original price was "1500", a string.
-  // Multiplication worked through automatic type conversion,
-  // but prices should be stored as numbers.
   { name: "Notebook", price: 1500, qty: 2 },
   { name: "Pen", price: 300, qty: 5 },
   { name: "Bag", price: 12000, qty: 1 }
@@ -13,11 +12,11 @@ const cart = [
 function getSubtotal(items) {
   let subtotal = 0;
 
-  // FIX 2: The original condition was i <= items.length.
-  // That accessed an index beyond the last item and caused
-  // an error when reading properties of undefined.
-  // The error was identified by inspecting i and items[i]
-  // while stepping through the loop in DevTools.
+  // FIX 2: The original loop used i <= items.length.
+  // This allowed the loop to access an index outside the array.
+  // I found the bug by stepping through the loop in DevTools
+  // and checking the values of i and items[i].
+  // Using i < items.length stops at the last valid index.
   for (let i = 0; i < items.length; i++) {
     subtotal += items[i].price * items[i].qty;
   }
@@ -26,10 +25,11 @@ function getSubtotal(items) {
 }
 
 function getDiscount(subtotal) {
-  // FIX 3: Check the higher discount first.
-  // The original 10% condition matched totals above 20000
-  // before the 20% condition could be reached.
-  // This was identified by testing a subtotal above 20000.
+  // FIX 3: The original code checked the 10% discount first.
+  // A subtotal above 20000 also matched the condition above 10000,
+  // so the 20% discount could never be applied.
+  // I found this by testing a subtotal greater than 20000.
+  // Checking the higher threshold first fixes the problem.
   if (subtotal > 20000) {
     return 0.2;
   }
@@ -45,10 +45,10 @@ function getTotal(items) {
   const subtotal = getSubtotal(items);
   const discountRate = getDiscount(subtotal);
 
-  // FIX 4: The original code subtracted the discount rate
-  // directly from the subtotal. A rate such as 0.1 is not
-  // the discount amount in money.
-  // Calculate the actual discount amount before subtracting.
+  // FIX 4: The original code subtracted the discount rate itself.
+  // For example, 0.1 represents 10%, not the money to subtract.
+  // I found the bug by checking the calculation of the final total.
+  // Multiplying the subtotal by the rate gives the discount amount.
   const discountAmount = subtotal * discountRate;
   const total = subtotal - discountAmount;
 
