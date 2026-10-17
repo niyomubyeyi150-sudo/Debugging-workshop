@@ -118,12 +118,10 @@ clearButton.addEventListener("click", function () {
   cartResult.className = "mt-5 rounded-lg bg-slate-100 p-4 text-slate-700";
 });
 
-// Count how many times the button is clicked
 consoleButton.addEventListener("click", function () {
   console.count("Count this click");
 });
 
-// Save sample data in localStorage
 saveStorageButton.addEventListener("click", function () {
   const sampleData = {
     workshop: "Week 4 Debugging Workshop",
@@ -146,7 +144,6 @@ saveStorageButton.addEventListener("click", function () {
   }
 });
 
-// Read saved data
 readStorageButton.addEventListener("click", function () {
   try {
     const savedData = localStorage.getItem("debugWorkshop");
@@ -166,20 +163,14 @@ readStorageButton.addEventListener("click", function () {
   }
 });
 
-// Remove saved data
 clearStorageButton.addEventListener("click", function () {
   localStorage.removeItem("debugWorkshop");
   storageResult.textContent = "Saved workshop data has been cleared.";
 });
 
-// Start the page
 renderCart();
 
 console.log("DebugLab is ready.");
-
-
-
-/* Responsive mobile navigation */
 
 const menuButton = document.querySelector("#menu-btn");
 const mobileMenu = document.querySelector("#mobile-menu");
@@ -202,7 +193,6 @@ if (menuButton && mobileMenu) {
     );
   });
 
-  // Close the menu after clicking a navigation link
   mobileMenu.querySelectorAll("a").forEach(function (link) {
     link.addEventListener("click", function () {
       mobileMenu.classList.add("hidden");
@@ -211,7 +201,6 @@ if (menuButton && mobileMenu) {
     });
   });
 
-  // Close the mobile menu when the screen becomes desktop-sized
   window.addEventListener("resize", function () {
     if (window.innerWidth >= 768) {
       mobileMenu.classList.add("hidden");
