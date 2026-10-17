@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hands-on JavaScript debugging and Chrome DevTools workshop">
+  <title>Week 4  Debugging Workshop</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-800">
+
+  <!-- Navbar: change h-20 in DevTools to test the live DOM -->
+  <header id="navbar" class="h-20 bg-slate-900 text-white shadow-lg">
+    <nav class="mx-auto flex h-full max-w-7xl items-center justify-between px-5 lg:px-8">
+      <a href="#home" class="text-xl font-bold tracking-tight">
+        DebugLab<span class="text-emerald-400">.</span>
+      </a>
+
+      <div class="hidden items-center gap-6 md:flex">
+        <a href="#exercises" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">Exercises</a>
+        <a href="#cart" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">Buggy Cart</a>
+        <a href="#devtools" class="text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-emerald-400">DevTools</a>
+      </div>
+
+      <a href="#exercises"
+         class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-white hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400">
+        Start Practice
+      </a>
+    </nav>
+  </header>
+
+  <main id="home" class="mx-auto max-w-7xl space-y-12 px-5 py-12 lg:px-8">
+
+    <!-- Hero section -->
+    <section class="grid items-center gap-8 md:grid-cols-2">
+      <div>
+        <p class="mb-3 font-semibold uppercase tracking-widest text-emerald-700">
+          Advanced Frontend Web Development
+        </p>
+
+        <h1 class="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+          Find bugs. Understand code. Fix with confidence.
+        </h1>
+
+        <p class="mt-5 max-w-xl leading-7 text-slate-600">
+          Learn to investigate JavaScript errors, use breakpoints,
+          inspect variables, test CSS and explore browser storage.
+          Do not guess. Find the cause first.
+        </p>
+
+        <a href="#exercises"
+           class="mt-7 inline-flex rounded-lg bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
+          Explore exercises
+        </a>
+      </div>
+
+      <div class="rounded-2xl bg-slate-900 p-6 text-sm text-emerald-300 shadow-xl sm:p-8">
+        <p class="text-slate-400">// Your debugging checklist</p>
+        <p class="mt-5">01 &nbsp; Reproduce the problem</p>
+        <p class="mt-3">02 &nbsp; Read the error message</p>
+        <p class="mt-3">03 &nbsp; Set a breakpoint</p>
+        <p class="mt-3">04 &nbsp; Inspect variable values</p>
+        <p class="mt-3">05 &nbsp; Fix and test again</p>
+        <div class="mt-6 border-t border-slate-700 pt-4 text-slate-400">
+          Console • Sources • Elements • Network • Application
+        </div>
+      </div>
+    </section>
+
+    <!-- Bug categories -->
+    <section id="exercises">
+      <div class="mb-6">
+        <p class="font-semibold text-emerald-700">EXERCISE 01</p>
+        <h2 class="mt-2 text-2xl font-bold">Know your bugs</h2>
+        <p class="mt-2 text-slate-600">Understand the problem before changing the code.</p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mb-4 inline-flex rounded-lg bg-red-100 px-3 py-1 font-semibold text-red-700">Syntax</div>
+          <h3 class="text-lg font-bold">Syntax error</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            The code cannot be parsed correctly.
+          </p>
+          <code class="mt-4 block rounded-lg bg-slate-100 p-3 text-sm">console.log("Hello"</code>
+          <p class="mt-3 text-sm text-slate-500">Fix: add the missing closing parenthesis.</p>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mb-4 inline-flex rounded-lg bg-amber-100 px-3 py-1 font-semibold text-amber-700">Runtime</div>
+          <h3 class="text-lg font-bold">Runtime error</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            The code crashes while it is running.
+          </p>
+          <code class="mt-4 block rounded-lg bg-slate-100 p-3 text-sm">user.name</code>
+          <p class="mt-3 text-sm text-slate-500">Problem: user may be undefined.</p>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="mb-4 inline-flex rounded-lg bg-blue-100 px-3 py-1 font-semibold text-blue-700">Logic</div>
+          <h3 class="text-lg font-bold">Logic error</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            The code runs but produces the wrong answer.
+          </p>
+          <code class="mt-4 block rounded-lg bg-slate-100 p-3 text-sm">"10" + 20</code>
+          <p class="mt-3 text-sm text-slate-500">Result: "1020", not 30.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Buggy cart -->
+    <section id="cart" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <div class="mb-6">
+        <p class="font-semibold text-emerald-700">EXERCISE 03</p>
+        <h2 class="mt-2 text-2xl font-bold">Shopping cart debugger</h2>
+        <p class="mt-2 text-slate-600">
+          Run the cart calculation, inspect its values, and compare the result.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[400px] text-left">
+          <thead>
+            <tr class="border-b border-slate-200 text-sm text-slate-500">
+              <th class="py-3 pr-4">Item</th>
+              <th class="py-3 pr-4">Price</th>
+              <th class="py-3">Quantity</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items"></tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button id="calculate-btn"
+          class="rounded-lg bg-emerald-600 px-5 py-3 font-semibold text-white hover:bg-emerald-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
+          Calculate total
+        </button>
+
+        <button id="clear-btn"
+          class="rounded-lg border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500">
+          Clear result
+        </button>
+      </div>
+
+      <div id="cart-result" aria-live="polite"
+        class="mt-5 rounded-lg bg-slate-100 p-4 text-slate-700">
+        Click Calculate total to start.
+      </div>
+    </section>
+
+    <!-- Console practice -->
+    <section class="rounded-2xl bg-emerald-50 p-6 sm:p-8">
+      <p class="font-semibold text-emerald-800">EXERCISE 02</p>
+      <h2 class="mt-2 text-2xl font-bold">Practice the Console</h2>
+      <p class="mt-3 leading-7 text-slate-700">
+        Open DevTools with F12 and select Console. Reload the page to see
+        console.table, console.time, console.count, console.warn and console.assert.
+      </p>
+
+      <button id="console-btn"
+        class="mt-5 rounded-lg bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+        Count this click
+      </button>
+
+      <p class="mt-3 text-sm text-slate-600">
+        Click several times, then check the Console for the count.
+      </p>
+    </section>
+
+    <!-- DevTools exercises -->
+    <section id="devtools">
+      <div class="mb-6">
+        <p class="font-semibold text-emerald-700">EXERCISE 04</p>
+        <h2 class="mt-2 text-2xl font-bold">Explore Chrome DevTools</h2>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-xl border border-slate-200 bg-white p-5">
+          <h3 class="font-bold">Elements</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Inspect the navbar, change its height, and force a button's focus state.
+          </p>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 bg-white p-5">
+          <h3 class="font-bold">Network</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Reload the page, inspect file requests, and test Slow 4G throttling.
+          </p>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 bg-white p-5">
+          <h3 class="font-bold">Application</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Inspect localStorage and find the saved workshop data.
+          </p>
+        </article>
+      </div>
+
+      <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+        <h3 class="text-lg font-bold">Local Storage test</h3>
+        <p class="mt-2 text-slate-600">
+          Save a sample value, then inspect it in DevTools → Application → Local Storage.
+        </p>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button id="save-storage-btn"
+            class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-700">
+            Save sample data
+          </button>
+
+          <button id="read-storage-btn"
+            class="rounded-lg border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500">
+            Read saved data
+          </button>
+
+          <button id="clear-storage-btn"
+            class="rounded-lg border border-red-200 px-5 py-3 font-semibold text-red-700 hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+            Clear saved data
+          </button>
+        </div>
+
+        <p id="storage-result" aria-live="polite"
+          class="mt-4 break-words rounded-lg bg-slate-100 p-4 text-sm">
+          No action performed yet.
+        </p>
+      </div>
+    </section>
+
+    <!-- Repeatable debugging process -->
+    <section class="rounded-2xl bg-slate-900 p-6 text-white sm:p-8">
+      <h2 class="text-2xl font-bold">Your debugging process</h2>
+      <ol class="mt-5 list-inside list-decimal space-y-3 leading-7 text-slate-300">
+        <li>Reproduce the problem.</li>
+        <li>Read the error message and line number.</li>
+        <li>Form a hypothesis about the cause.</li>
+        <li>Test it with a breakpoint or console output.</li>
+        <li>Fix one problem at a time and test again.</li>
+        <li>Explain the cause and commit your fix.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white px-5 py-6 text-center text-sm text-slate-500">
+    Week 4 Debugging Workshop · Advanced Frontend Web Development
+  </footer>
+
+  <script src="./console-practice.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
